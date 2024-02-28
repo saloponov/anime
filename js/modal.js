@@ -23,8 +23,6 @@ const modal = () => {
         });
     }
 
-
-
     modalSearchClose.addEventListener('click', () => {
         console.log('modalSearchClose.addEventListener')
 
@@ -34,7 +32,7 @@ const modal = () => {
     modalSearchInput.addEventListener('input', () => {
         console.log(modalSearchInput.value);
     })
-    
+
     modalSearchOpenFn();
 }
 
