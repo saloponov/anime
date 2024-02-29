@@ -1,8 +1,68 @@
 const mainData = () => {
 
     const renderAnimeList = (anime, ganres) => {
-        console.log(anime);
-        console.log(ganres);
+        const wrapper = document.querySelector('.product .col-lg-8')
+        console.log(wrapper);
+
+        wrapper.innerHTML = ''
+
+        ganres.forEach((ganre) => {
+            const productBlock = document.createElement('div');
+            const listBlock = document.createElement('div');
+
+            const list = anime.filter(item => item.ganre === ganre)
+
+            listBlock.classList.add('row')
+            productBlock.classList.add('mb5')
+
+            productBlock.insertAdjacentHTML('afterbegin', `
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-8">
+                                <div class="section-title">
+                                    <h4>${ganre}</h4>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <div class="btn__all">
+                                    <a href="/categories.html?${ganre}" class="primary-btn">View All <span
+                                            class="arrow_right"></span></a>
+                                </div>
+                            </div>
+                        </div>
+            `)
+
+            list.forEach(item => {
+                const tagsBlock = document.createElement('ul')
+
+                item.tags.forEach(tag => {
+                    tagsBlock.insertAdjacentHTML('afterbegin', `
+                    <li>${tag}</li>
+                    `);
+                })
+
+                listBlock.insertAdjacentHTML('afterbegin', `
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                                <div class="product__item">
+                                    <div class="product__item__pic set-bg" data-setbg="${item.image}">
+                                        <div class="ep">${item.rating} / 18</div>
+                                        <div class="view"><i class="fa fa-eye"></i> ${item.views}</div>
+                                    </div>
+                                    <div class="product__item__text">
+                                        ${tagsBlock.outerHTML}
+                                        <h5><a href="/anime-details.html?itemId=${item.id}">${item.title}</a>
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                `)
+            })
+            productBlock.append(listBlock)
+            wrapper.append(productBlock);
+
+            wrapper.querySelectorAll('.set-bg').forEach((element) => {
+                element.style.backgroundImage = `url(${element.dataset.setbg})`;
+            });
+        })
     }
     const renderTopAnime = (array) => {
         const wrapper = document.querySelector('.filter__gallery')
@@ -12,8 +72,8 @@ const mainData = () => {
 
         array.forEach(item => {
             console.log(item);
-            wrapper.insertAdjacentHTML('afterbegin', 
-            `<div class="product__sidebar__view__item set-bg mix" data-setbg="${item.image}">
+            wrapper.insertAdjacentHTML('afterbegin',
+                `<div class="product__sidebar__view__item set-bg mix" data-setbg="${item.image}">
                 <div class="ep">${item.rating} / 10</div>
                 <div class="view"><i class="fa fa-eye"></i>${item.views}</div>
                 <h5><a href="/anime-details.html">${item.title}</a></h5>
@@ -21,7 +81,7 @@ const mainData = () => {
            `);
         });
 
-        wrapper.querySelectorAll('set-bg').forEach((element) => {
+        wrapper.querySelectorAll('.set-bg').forEach((element) => {
             element.style.backgroundImage = `url(${element.dataset.setbg})`;
         })
     }
@@ -35,7 +95,7 @@ const mainData = () => {
         data.forEach((item) => {
             ganres.add(item.ganre)
         })
-        
+
         renderAnimeList(data, ganres);
     })
 }
