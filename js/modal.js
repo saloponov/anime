@@ -5,7 +5,6 @@ const modal = () => {
     const modalSearchInput = document.querySelector('#search-input')
     const wrapper = document.querySelector('.search-model-result')
 
-    console.log(wrapper);
     let database;
     
     fetch('https://anime-database-8ca84-default-rtdb.europe-west1.firebasedatabase.app/anime.json').then((response) => {
@@ -14,10 +13,7 @@ const modal = () => {
         database = data;
     });
 
-    console.log(database);
-
     const modalSearchAnime = () => {
-        console.log(modalSearch.classList)
         if (modalSearch.classList.contains('active')) {
             modalSearch.classList.remove('active')
         } else {
@@ -28,9 +24,7 @@ const modal = () => {
     const modalSearchOpenFn = () => {
 
         modalSearchBtn.addEventListener('click', () => {
-            console.log('click');
-
-            modalSearchAnime();
+             modalSearchAnime();
         });
     }
 
@@ -47,15 +41,11 @@ const modal = () => {
     }
 
     modalSearchClose.addEventListener('click', () => {
-        console.log('modalSearchClose.addEventListener')
-
         modalSearchAnime();
     });
     
 
     modalSearchInput.addEventListener('input', () => {
-        console.log(modalSearchInput.value);
-
         searchAnimeInDb(modalSearchInput.value);
     })
 
