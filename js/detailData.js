@@ -1,4 +1,6 @@
 const detailData = () => {
+    const preloder = document.querySelector('.preloder')
+
     const renderGanreList = (ganres) => {
         const dropdownBlock = document.querySelector('.header__menu .dropdown')
 
@@ -17,7 +19,7 @@ const detailData = () => {
         const subTitileBlock = document.querySelector('.anime__details__title span')
         const descriptionBlock = document.querySelector('.anime__details__text p')
         const widgetList = document.querySelectorAll('.anime__details__widget ul li')
-        const breadCrumbList  = document.querySelectorAll('.breadcrumb__links')
+        const breadCrumbList  = document.querySelector('.breadcrumb__links span')
         
         
         if (animeObj) {
@@ -39,13 +41,26 @@ const detailData = () => {
             widgetList[2].insertAdjacentHTML('beforeend', `
             <span>Genre:</span> ${animeObj.tags.join(', ')}
             `)
+
+            breadCrumbList.textContent = animeObj.ganre
             document.querySelectorAll('.set-bg').forEach((element) => {
                 element.style.backgroundImage = `url(${element.dataset.setbg})`;
             });
+
+            setTimeout(() => {
+                preloder.classList.remove('active')
+            }, 500)
         } else {
             console.log('Аниме отсутсвует');
         }
+
+        setTimeout(() => {
+            preloder.classList.remove('active')
+        }, 500)
     }
+
+    preloder.classList.add('active')
+
     
     fetch('https://anime-database-8ca84-default-rtdb.europe-west1.firebasedatabase.app/anime.json')
         .then((response) => response.json())

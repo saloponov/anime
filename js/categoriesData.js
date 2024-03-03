@@ -1,4 +1,6 @@
 const categoriesData = () => {
+    const preloder = document.querySelector('.preloder')
+
     const renderGanreList = (ganres) => {
         const dropdownBlock = document.querySelector('.header__menu .dropdown')
 
@@ -70,6 +72,7 @@ const categoriesData = () => {
             });
         })
     }
+
     const renderTopAnime = (array) => {
         const wrapper = document.querySelector('.filter__gallery')
 
@@ -89,12 +92,14 @@ const categoriesData = () => {
         })
     }
 
+    preloder.classList.add('active')
+
     fetch('https://anime-database-8ca84-default-rtdb.europe-west1.firebasedatabase.app/anime.json')
         .then((response) => response.json())
         .then((data) => {
             const ganres = new Set()
             const ganreParams = new URLSearchParams(window.location.search).get('ganre');
-            
+
             data.forEach((item) => {
                 ganres.add(item.ganre)
             })
@@ -106,8 +111,12 @@ const categoriesData = () => {
             } else {
                 renderAnimeList(data, ganres);
             }
-                
+
             renderGanreList(ganres);
+
+            setTimeout(() => {
+                preloder.classList.remove('active')
+            }, 500)
         })
 }
 

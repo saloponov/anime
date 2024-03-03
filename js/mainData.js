@@ -1,4 +1,6 @@
 const mainData = () => {
+    const preloder = document.querySelector('.preloder')
+
     const renderGanreList = (ganres) => {
         const dropdownBlock = document.querySelector('.header__menu .dropdown')
 
@@ -87,7 +89,13 @@ const mainData = () => {
         wrapper.querySelectorAll('.set-bg').forEach((element) => {
             element.style.backgroundImage = `url(${element.dataset.setbg})`;
         })
+
+        setTimeout(() => {
+            preloder.classList.remove('active')
+        }, 500)
     }
+
+    preloder.classList.add('active')
 
     fetch('https://anime-database-8ca84-default-rtdb.europe-west1.firebasedatabase.app/anime.json')
         .then((response) => response.json())
