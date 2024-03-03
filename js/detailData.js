@@ -22,7 +22,6 @@ const detailData = () => {
         
         if (animeObj) {
             imageBlock.dataset.setbg = animeObj.image
-            viewsBlock.innerHTML = ''
             viewsBlock.insertAdjacentHTML('beforeend', `
             <i class="fa fa-eye"></i> ${animeObj.views}</div>
             `)
